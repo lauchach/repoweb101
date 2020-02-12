@@ -1,91 +1,65 @@
 <template>
   <div class="Login2">
-    <div id="app">
-      <div class="limiter">
-        <div class="container-login100">
-          <div class="wrap-login100">
-            <div class="login100-pic js-tilt" data-tilt>
-              <img src="../images/img-01.png" alt="IMG" />
+    <div class="limiter">
+      <div class="container-login100">
+        <div class="wrap-login100">
+          <div class="login100-pic js-tilt" data-tilt>
+            <img src="../images/img-01.png" alt="IMG" />
+          </div>
+
+          <form class="login100-form validate-form">
+            <span class="login100-form-title">
+              Member Login
+            </span>
+
+            <div
+              class="wrap-input100 validate-input"
+              data-validate="Valid email is required: ex@abc.xyz"
+            >
+              <input
+                class="input100"
+                type="text"
+                name="email"
+                placeholder="Email"
+              />
+              <span class="focus-input100"></span>
+              <span class="symbol-input100">
+                <i class="fa fa-envelope" aria-hidden="true"></i>
+              </span>
             </div>
 
-            <form class="login100-form validate-form">
-              <span class="login100-form-title">
-                Member Login
+            <div
+              class="wrap-input100 validate-input"
+              data-validate="Password is required"
+            >
+              <input
+                class="input100"
+                type="password"
+                name="pass"
+                placeholder="Password"
+              />
+              <span class="focus-input100"></span>
+              <span class="symbol-input100">
+                <i class="fa fa-lock" aria-hidden="true"></i>
               </span>
+            </div>
 
-              <div
-                class="wrap-input100 validate-input"
-                data-validate="Valid email is required: ex@abc.xyz"
+            <div class="container-login100-form-btn">
+              <button class="login100-form-btn">
+                Login
+              </button>
+            </div>
+
+
+            <div class="text-center p-t-136">
+              <a class="txt2">
+                <router-link to="/register" class="card-link"
+                >Create your Account</router-link
               >
-                <input
-                  v-model="email"
-                  class="input100"
-                  type="text"
-                  name="email"
-                  placeholder="Email"
-                />
-                <span class="focus-input100"></span>
-                <span class="symbol-input100">
-                  <i class="fa fa-envelope" aria-hidden="true"></i>
-                </span>
-              </div>
-
-              <div
-                class="wrap-input100 validate-input"
-                data-validate="Password is required"
-              >
-                <input
-                  v-model="password"
-                  class="input100"
-                  type="password"
-                  name="password"
-                  placeholder="Password"
-                />
-                <span class="focus-input100"></span>
-                <span class="symbol-input100">
-                  <i class="fa fa-lock" aria-hidden="true"></i>
-                </span>
-              </div>
-              <div>
-                <div class="container-login100-form-btn" tag="button">
-                  <div class="login100-form-btn" @click="login">Login</div>
-                </div>
-
-                <!-- <div class="container-login100-form-btn" tag="button">
-                  <div class="login100-form-btn" @click="get">GET</div>
-                </div>
-
-                <div class="container-login100-form-btn" tag="button">
-                  <div class="login100-form-btn" @click="post">POST</div>
-                </div> -->
-              </div>
-              <div class="container-login100-form-btn">
-                <router-link
-                  to="/Chatroom"
-                  tag="button"
-                  class="login100-form-btn"
-                  >Login</router-link
-                >
-              </div>
-
-              <div class="container-login100-form-btn">
-                <router-link
-                  to="/testaxios"
-                  tag="button"
-                  class="login100-form-btn"
-                  >testaxios</router-link
-                >
-              </div>
-
-              <div class="text-center p-t-20">
-                <router-link to="/register">Create Your Account</router-link>
-              </div>
-
-              <div class="text-center p-t-136">
-                <router-link to="/register"></router-link>
-              </div>
-            </form>
-          </div>
+                <i class="fa fa-long-arrow-right m-l-5" aria-hidden="true"></i>
+              </a>
+            </div>
+          </form>
         </div>
       </div>
     </div>
@@ -93,6 +67,8 @@
 </template>
 
 <script>
+// let res = "ADMIN";
+// import router from "../router";
 // import jQuery2 from "../vendor/jquery/jquery-3.2.1.min.js";
 export default {
   name: "Login2",
@@ -126,6 +102,9 @@ export default {
           // eslint-disable-next-line no-console
           console.log(err);
         });
+    },
+    routertest() {
+      this.$router.replace("register2");
     }
 
     // login() {
