@@ -37,7 +37,6 @@
                 <input
                   v-model="password"
                   class="input100"
-                  type="password"
                   name="password"
                   placeholder="Password"
                 />
@@ -51,38 +50,32 @@
                   <div class="login100-form-btn" @click="login">Login</div>
                 </div>
 
-                <!-- <div class="container-login100-form-btn" tag="button">
-                  <div class="login100-form-btn" @click="get">GET</div>
+                <div class="form-group">
+                  <button
+                    class="btn btn-primary"
+                    data-dismiss="modal"
+                    @click="routertest"
+                  >
+                    $router
+                  </button>
                 </div>
 
-                <div class="container-login100-form-btn" tag="button">
-                  <div class="login100-form-btn" @click="post">POST</div>
-                </div> -->
-              </div>
-              <div class="container-login100-form-btn">
-                <router-link
-                  to="/Chatroom"
-                  tag="button"
-                  class="login100-form-btn"
-                  >Login</router-link
-                >
-              </div>
+                <div class="container-login100-form-btn">
+                  <router-link
+                    to="/testaxios"
+                    tag="button"
+                    class="login100-form-btn"
+                    >testaxios</router-link
+                  >
+                </div>
 
-              <div class="container-login100-form-btn">
-                <router-link
-                  to="/testaxios"
-                  tag="button"
-                  class="login100-form-btn"
-                  >testaxios</router-link
-                >
-              </div>
+                <div class="text-center p-t-20">
+                  <router-link to="/register">Create Your Account</router-link>
+                </div>
 
-              <div class="text-center p-t-20">
-                <router-link to="/register">Create Your Account</router-link>
-              </div>
-
-              <div class="text-center p-t-136">
-                <router-link to="/register"></router-link>
+                <div class="text-center p-t-136">
+                  <router-link to="/register"></router-link>
+                </div>
               </div>
             </form>
           </div>
@@ -93,6 +86,8 @@
 </template>
 
 <script>
+// let res = "ADMIN";
+// import router from "../router";
 // import jQuery2 from "../vendor/jquery/jquery-3.2.1.min.js";
 export default {
   name: "Login2",
@@ -126,6 +121,9 @@ export default {
           // eslint-disable-next-line no-console
           console.log(err);
         });
+    },
+    routertest() {
+      this.$router.replace("register2");
     }
 
     // login() {
