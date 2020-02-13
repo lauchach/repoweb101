@@ -52,6 +52,7 @@
 </template>
 
 <script>
+// import { mapGetters } from "vuex";
 // eslint-disable-next-line no-console
 console.log("views/login>>>>");
 // import { mapActions } from "vuex";                                                                      // methods V.2.0
@@ -73,8 +74,23 @@ export default {
           password: this.password
         })
         .then(res => {
+          // eslint-disable-next-line no-console
+          console.log(res);
           if (res.data.success) {
             alert("สำเร็จ  >>");
+            let user = JSON.stringify(res.data.username);
+            let type = JSON.stringify(res.data.type);
+            // eslint-disable-next-line no-console
+            console.log("user", user);
+            localStorage.setItem("userData", JSON.stringify(user));
+            localStorage.setItem("userData2", JSON.stringify(type));
+            // eslint-disable-next-line no-console
+            console.log("localStorage ", localStorage);
+            // eslint-disable-next-line no-console
+            console.log("localStorage>>> ", JSON.parse(localStorage.userData));
+            // eslint-disable-next-line no-console
+            console.log("localStorage222>>> ", JSON.parse(localStorage.userData2));
+            // commit('auth_success', user);
             this.$router.push("/Chatroom");
           }
         })
