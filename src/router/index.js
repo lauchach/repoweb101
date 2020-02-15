@@ -5,6 +5,7 @@ import Register from "../views/register.vue";
 import Login from "../views/Login.vue";
 
 import Chatroom from "../views/Chatroom.vue";
+// import Chatroomejs from "../views/chatroom.ejs";
 
 Vue.use(VueRouter);
 
@@ -38,6 +39,11 @@ const routes = [
     name: "Chatroom",
     component: Chatroom
   }
+  // {
+  //   path: "/Chatroomejs",
+  //   name: "Chatroomejs",
+  //   component: Chatroomejs
+  // }
 ];
 
 const router = new VueRouter({
