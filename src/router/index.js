@@ -2,8 +2,10 @@ import Vue from "vue";
 import VueRouter from "vue-router";
 import Home from "../views/Home.vue";
 import Register from "../views/register.vue";
+import Login from "../views/Login.vue";
 
 import Chatroom from "../views/Chatroom.vue";
+// import Chatroomejs from "../views/chatroom.ejs";
 
 Vue.use(VueRouter);
 
@@ -28,10 +30,20 @@ const routes = [
     component: Register
   },
   {
+    path: "/login",
+    name: "login",
+    component: Login
+  },
+  {
     path: "/Chatroom",
     name: "Chatroom",
     component: Chatroom
   }
+  // {
+  //   path: "/Chatroomejs",
+  //   name: "Chatroomejs",
+  //   component: Chatroomejs
+  // }
 ];
 
 const router = new VueRouter({
