@@ -79,12 +79,12 @@ export default {
           if (res.data.success) {
             alert("สำเร็จ  >>");
             let user = JSON.stringify(res.data);
-            let type = JSON.stringify(res.data.type);
+            // let type = JSON.stringify(res.data.type);
             // eslint-disable-next-line no-console
             console.log("user", user);
             localStorage.setItem("userData", user);
             // localStorage.setItem("userData", JSON.stringify(user));
-            localStorage.setItem("userData2", JSON.stringify(type));
+            // localStorage.setItem("userData2", JSON.stringify(type));
             // eslint-disable-next-line no-console
             console.log("localStorage ", localStorage);
             // eslint-disable-next-line no-console
@@ -96,6 +96,7 @@ export default {
           }
         })
         .catch(err => {
+          alert("ไม่สำเร็จ>>");
           // eslint-disable-next-line no-console
           console.log(err);
         });

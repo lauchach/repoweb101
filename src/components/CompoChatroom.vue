@@ -2,7 +2,6 @@
   <div class="chat-window">
     <div class="messages">
       <div class="message" v-for="message in messages" v-bind:key="message._id">
-        <!-- <div class="username">{{ message.username }}</div> -->
         <div class="username">{{ message.username }}</div>
         <div class="message-text">{{ message.msg }}</div>
       </div>
@@ -16,7 +15,7 @@
 
 <script>
 export default {
-  name: "conpoChatroom",
+  name: "compoChatroom",
   props: ["messages"],
   data: function() {
     return {
@@ -46,7 +45,7 @@ export default {
   box-shadow: 1px 1px 6px 0px rgba(0, 0, 0, 0.15);
 
   .messages {
-    flex: 1;
+    height: 510px;
     overflow: scroll;
 
     .message {
