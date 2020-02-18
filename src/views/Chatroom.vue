@@ -7,7 +7,7 @@
         <!-- An elegant chat widget compatible with Bootstrap 4 -->
       </p>
       <p class="text-white lead mb-4">
-         by
+        by
         <a href="https://bootstrapious.com" class="text-white">
           <u>Tarnapot</u></a
         >
@@ -140,56 +140,77 @@
 </template>
 
 <script>
-import io from "socket.io-client";
-import ChatRoom from "../components/CompoChatroom";
+import io from 'socket.io-client'
+import ChatRoom from '../components/CompoChatroom'
 export default {
-  name: "Chatroom",
+  name: 'Chatroom',
   components: {
     ChatRoom
   },
   data() {
     return {
-      datauser: JSON.parse(localStorage.getItem("userData")),
-      localuser: [
-        {
-          username: "",
-          type: ""
-        }
-      ],
-      socket: io("http://localhost:3000"),
+      datauser: JSON.parse(localStorage.getItem('userData')),
+      socket: io('http://localhost:3000'),
       messages: [],
-      users: [],
-      subjectName: "",
-      loopSubjectId: ""
-    };
+      users: []
+    }
   },
   mounted: function() {
-    this.joinServer();
+    if (!this.datauser) {
+      this.notnulljoinServer()
+      // eslint-disable-next-line no-console
+      console.log('erro')
+    } else {
+      this.username = this.datauser.username
+      this.joinServer()
+      // eslint-disable-next-line no-console
+      console.log('mounted/this.username', this.datauser.username)
+    }
   },
   methods: {
     joinServer: function() {
-      this.socket.on("loggedIn", data => {
-        this.messages = data.messages;
-        this.users = data.users;
-        this.socket.emit("newuser", this.datauser.username);
-      });
       // eslint-disable-next-line no-console
-      console.log("users", this.users);
-      this.listen();
+      console.log('username', this.username)
+      // this.socket.emit("newuser", this.username);
+
+      this.socket.on('loggedIn', data => {
+        this.messages = data.messages
+        this.users = data.users
+      this.socket.emit('newuser', this.username)
+      })
+      // eslint-disable-next-line no-console
+      console.log('s.username', this.data)
+      // eslint-disable-next-line no-console
+      console.log('users>>>', this.users)
+      this.listen()
+      // this.socket.on("userOnline", user => {
+      //   this.users.push(user);
+      //   // eslint-disable-next-line no-console
+      //   console.log("listen: function()//this.users", this.users);
+      // });
     },
     listen: function() {
-      this.socket.on("userOnline", user => {
-        this.users.push(user);
-      });
-      this.socket.on("userOut", user => {
-        this.users.splice(this.users.indexOf(user), 1);
-      });
-      this.socket.on("msg", message => {
-        this.messages.push(message);
-      });
+      // eslint-disable-next-line no-console
+      console.log('listen: function()')
+      this.socket.on('userOnline', user => {
+        this.users.push(user)
+        // eslint-disable-next-line no-console
+        console.log('listen: function()//this.users', this.users)
+      })
+      this.socket.on('userOut', user => {
+        this.users.splice(this.users.indexOf(user), 1)
+      })
+      this.socket.on('msg', message => {
+        this.messages.push(message)
+      })
     },
     sendMessage: function(message) {
-      this.socket.emit("msg", message);
+      this.socket.emit('msg', message)
+    },
+    notnulljoinServer: function() {
+      // eslint-disable-next-line no-console
+      console.log('notnulljoinServer/function')
+      this.$router.push('/')
     }
   }
   // <div class="header">
@@ -202,7 +223,7 @@ export default {
   // <div class="testitem" v-for="(testitem, user) in users" :key="'ing' + user">
   //   <div class="message">{{ testitem }}</div>
   // </div>
-};
+}
 </script>
 
 <style lang="scss">

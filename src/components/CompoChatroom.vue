@@ -7,6 +7,15 @@
       </div>
     </div>
     <form class="input-container" v-on:submit="sendMessage">
+      <p type="text">{{ this.datauser.username }}:</p>
+      <!-- <input
+        id="email"
+        type="text"
+        placeholder="Email"
+        name="email"
+        v-model="email"
+        class="input100"
+      /> -->
       <input type="text" v-model="msg" />
       <button v-on:click="sendMessage" v-bind:disabled="!msg">Send</button>
     </form>
@@ -15,25 +24,26 @@
 
 <script>
 export default {
-  name: "compoChatroom",
-  props: ["messages"],
+  name: 'compoChatroom',
+  props: ['messages'],
   data: function() {
     return {
-      msg: ""
-    };
+      msg: '',
+      datauser: JSON.parse(localStorage.getItem('userData'))
+    }
   },
   methods: {
     sendMessage: function() {
       if (!this.msg) {
-        alert("Please enter a message");
-        return;
+        alert('Please enter a message')
+        return
       }
 
-      this.$emit("sendMessage", this.msg);
-      this.msg = "";
+      this.$emit('sendMessage', this.msg)
+      this.msg = ''
     }
   }
-};
+}
 </script>
 
 <style lang="scss" scoped>
@@ -76,6 +86,7 @@ export default {
       flex: 1;
       height: 35px;
       font-size: 18px;
+      // margin-left: 90px;
       box-sizing: border-box;
     }
 
