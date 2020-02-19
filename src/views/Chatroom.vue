@@ -154,7 +154,7 @@ export default {
       socket: io('http://localhost:3000'),
       messages: [],
       users: [],
-      crtime: []
+      time: []
     }
   },
   mounted: function() {
@@ -165,6 +165,24 @@ export default {
     } else {
       this.username = this.datauser.username
       this.joinServer()
+      this.socket.on('loggedIn', data => {
+        this.users = data.users
+        this.messages = data.messages
+        this.time = data.time
+      })
+      this.socket.on('userOnline', user => {
+        this.users.push(user)
+        // eslint-disable-next-line no-console
+        console.log('listen/messages>>>', JSON.stringify(this.messages))
+        // eslint-disable-next-line no-console
+        console.log('userOnline//this.users', this.users)
+      })
+      this.socket.on('userOut', user => {
+        this.users.splice(this.users.indexOf(user), 1)
+      })
+      this.socket.on('msg', message => {
+        this.messages.push(message)
+      })
       // eslint-disable-next-line no-console
       console.log('mounted/this.username', this.datauser.username)
     }
@@ -173,14 +191,8 @@ export default {
     joinServer: function() {
       // eslint-disable-next-line no-console
       console.log('username', this.username)
-      // this.socket.emit("newuser", this.username);
-      // const createdAt: moment(messages.createdAt).format('h:mm a')
-      this.socket.on('loggedIn', data => {
-        this.users = data.users
-        this.messages = data.messages
-        this.time = data.time
-        this.socket.emit('newuser', this.username)
-      })
+      this.socket.emit('newuser', this.username)
+      // })
       // eslint-disable-next-line no-console
       console.log(moment(this.createdAt).format('h:mm a'))
       // eslint-disable-next-line no-console
@@ -191,29 +203,6 @@ export default {
       console.log('messages>>>', JSON.stringify(this.messages))
       // eslint-disable-next-line no-console
       console.log('arr1>>>', JSON.stringify(this.messages.arr1))
-      this.listen()
-      // this.socket.on("userOnline", user => {
-      //   this.users.push(user);
-      //   // eslint-disable-next-line no-console
-      //   console.log("listen: function()//this.users", this.users);
-      // });
-    },
-    listen: function() {
-      // eslint-disable-next-line no-console
-      console.log('listen: function()')
-      this.socket.on('userOnline', user => {
-        this.users.push(user)
-        // eslint-disable-next-line no-console
-        console.log('listen/messages>>>', JSON.stringify(this.messages))
-        // eslint-disable-next-line no-console
-        console.log('listen: function()//this.users', this.users)
-      })
-      this.socket.on('userOut', user => {
-        this.users.splice(this.users.indexOf(user), 1)
-      })
-      this.socket.on('msg', message => {
-        this.messages.push(message)
-      })
     },
     sendMessage: function(message) {
       this.socket.emit('msg', message)
@@ -228,27 +217,10 @@ export default {
       this.$router.push('/')
     }
   }
-  // <div class="header">
-  // <h1>Chatroom</h1>
-  // <p class="datauser">Username: {{ datauser.username }}</p>
-  // <p class="online">Online: {{ users.length }}</p>
-  // <p class="online">Online: {{ users }}</p>
-  // </div>
-  // <ChatRoom v-bind:messages="messages" v-on:sendMessage="this.sendMessage" />
-  // <div class="testitem" v-for="(testitem, user) in users" :key="'ing' + user">
-  //   <div class="message">{{ testitem }}</div>
-  // </div>
 }
 </script>
 
 <style lang="scss">
-/*
-*
-* ==========================================
-* FOR DEMO PURPOSES
-* ==========================================
-*
-*/
 body {
   background-color: #74ebd5;
   background-image: linear-gradient(90deg, #74ebd5 0%, #9face6 100%);
