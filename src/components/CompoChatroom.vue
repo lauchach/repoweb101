@@ -2,12 +2,20 @@
   <div class="chat-window">
     <div class="messages">
       <div class="message" v-for="message in messages" v-bind:key="message._id">
-        <!-- <div class="username">{{ message.username }}</div> -->
         <div class="username">{{ message.username }}</div>
         <div class="message-text">{{ message.msg }}</div>
       </div>
     </div>
     <form class="input-container" v-on:submit="sendMessage">
+      <p type="text">{{ this.datauser.username }}:</p>
+      <!-- <input
+        id="email"
+        type="text"
+        placeholder="Email"
+        name="email"
+        v-model="email"
+        class="input100"
+      /> -->
       <input type="text" v-model="msg" />
       <button v-on:click="sendMessage" v-bind:disabled="!msg">Send</button>
     </form>
@@ -16,25 +24,26 @@
 
 <script>
 export default {
-  name: "conpoChatroom",
-  props: ["messages"],
+  name: 'compoChatroom',
+  props: ['messages'],
   data: function() {
     return {
-      msg: ""
-    };
+      msg: '',
+      datauser: JSON.parse(localStorage.getItem('userData'))
+    }
   },
   methods: {
     sendMessage: function() {
       if (!this.msg) {
-        alert("Please enter a message");
-        return;
+        alert('Please enter a message')
+        return
       }
 
-      this.$emit("sendMessage", this.msg);
-      this.msg = "";
+      this.$emit('sendMessage', this.msg)
+      this.msg = ''
     }
   }
-};
+}
 </script>
 
 <style lang="scss" scoped>
@@ -44,9 +53,11 @@ export default {
   flex-direction: column;
   background-color: #f9f9f9;
   box-shadow: 1px 1px 6px 0px rgba(0, 0, 0, 0.15);
+  padding: 3px;
+  border-radius: 0.7rem;
 
   .messages {
-    flex: 1;
+    height: 510px;
     overflow: scroll;
 
     .message {
@@ -75,6 +86,7 @@ export default {
       flex: 1;
       height: 35px;
       font-size: 18px;
+      // margin-left: 90px;
       box-sizing: border-box;
     }
 
