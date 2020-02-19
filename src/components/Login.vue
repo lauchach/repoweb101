@@ -90,10 +90,7 @@ export default {
             // eslint-disable-next-line no-console
             console.log('localStorage>>> ', JSON.parse(localStorage.userData))
             // eslint-disable-next-line no-console
-            console.log(
-              'localStorage222>>> ',
-              JSON.parse(localStorage.userData2)
-            )
+            // console.log("localStorage222>>> ", JSON.parse(localStorage.userData2));
             // commit('auth_success', user);
             this.$router.push('/Chatroom')
           }
