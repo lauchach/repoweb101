@@ -11,10 +11,10 @@
 // import Login from "../components/Login";
 // import Login2 from "../components/Login2";
 export default {
-  name: "home",
+  name: 'home',
   components: {
     // Login,
     //Login2 // HelloWorld
   }
-};
+}
 </script>

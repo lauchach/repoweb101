@@ -2,7 +2,7 @@
   <div class="container py-5 px-4">
     <div class="topright">
       <button type="button" class="btn-btn-link" @click="logout">Logout</button>
-    </div>  
+    </div>
     <header class="text-center">
       <h1 class="display-4 text-white">ChatRoom</h1>
       <p class="text-white lead mb-0"></p>
@@ -35,7 +35,7 @@
           @chat-box
           <p class="online">Online: {{ users.length }}</p>
           <!-- <p class="online">Online: {{ createdAt }}</p> -->
-          <p class="online">test time: {{ createdAt }}</p>
+          <p class="online">test time: {{ time }}</p>
           <!-- Sender Message online users-->
           <div
             class="testitem"
@@ -142,6 +142,7 @@
 import io from 'socket.io-client'
 import ChatRoom from '../components/CompoChatroom'
 var moment = require('moment')
+// let time = new Date();
 export default {
   name: 'Chatroom',
   components: {
@@ -177,7 +178,7 @@ export default {
       this.socket.on('loggedIn', data => {
         this.users = data.users
         this.messages = data.messages
-        this.createdAt = data.createdAt
+        this.time = data.time
         this.socket.emit('newuser', this.username)
       })
       // eslint-disable-next-line no-console
@@ -221,8 +222,7 @@ export default {
       // eslint-disable-next-line no-console
       console.log('notnulljoinServer/function')
       this.$router.push('/')
-    }
-    ,
+    },
     logout: function() {
       localStorage.clear()
       this.$router.push('/')
@@ -298,7 +298,7 @@ input::placeholder {
   color: #999;
 }
 
-.btn-btn-link{
+.btn-btn-link {
   // padding: 9px;
   background: rgb(248, 248, 248);
   border-radius: 0.5rem;
@@ -306,7 +306,7 @@ input::placeholder {
   height: 40px;
 }
 
-.topright{
+.topright {
   position: relative;
   margin-left: 92%;
 }

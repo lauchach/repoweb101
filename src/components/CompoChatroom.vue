@@ -4,6 +4,7 @@
       <div class="message" v-for="message in messages" v-bind:key="message._id">
         <div class="username">{{ message.username }}</div>
         <div class="message-text">{{ message.msg }}</div>
+        <div class="message-time">{{ message.time }}</div>
       </div>
     </div>
     <form class="input-container" v-on:submit="sendMessage">
@@ -19,6 +20,7 @@
       <input type="text" v-model="msg" />
       <button v-on:click="sendMessage" v-bind:disabled="!msg">Send</button>
     </form>
+    <!-- <div class="text">{{ messages }}</div> -->
   </div>
 </template>
 
@@ -76,6 +78,13 @@ export default {
 
       .message-text {
         flex: 1;
+        // width: 50px;
+        // background: red; 
+      }
+      .message-time {
+        // flex: 1;
+        // background: yellow;
+        padding-right: 0
       }
     }
   }
