@@ -35,6 +35,8 @@
         <div class="px-4 py-5 chat-box bg-white">
           @chat-box
           <p class="online">Online: {{ users.length }}</p>
+          <p class="online">Online: {{ createdAt }}</p>
+          <p class="online">test time: {{ createdAt }}</p>
           <!-- Sender Message online users-->
           <div
             class="testitem"
@@ -132,8 +134,6 @@
             </div>
           </div> -->
         </div>
-
-        <!-- Typing area -->
       </div>
     </div>
   </div>
@@ -142,6 +142,7 @@
 <script>
 import io from 'socket.io-client'
 import ChatRoom from '../components/CompoChatroom'
+var moment = require('moment')
 export default {
   name: 'Chatroom',
   components: {
@@ -152,7 +153,8 @@ export default {
       datauser: JSON.parse(localStorage.getItem('userData')),
       socket: io('http://localhost:3000'),
       messages: [],
-      users: []
+      users: [],
+      crtime: []
     }
   },
   mounted: function() {
@@ -172,16 +174,23 @@ export default {
       // eslint-disable-next-line no-console
       console.log('username', this.username)
       // this.socket.emit("newuser", this.username);
-
+      // const createdAt: moment(messages.createdAt).format('h:mm a')
       this.socket.on('loggedIn', data => {
-        this.messages = data.messages
         this.users = data.users
-      this.socket.emit('newuser', this.username)
+        this.messages = data.messages
+        this.createdAt = data.createdAt
+        this.socket.emit('newuser', this.username)
       })
+      // eslint-disable-next-line no-console
+      console.log(moment(this.createdAt).format('h:mm a'))
       // eslint-disable-next-line no-console
       console.log('s.username', this.data)
       // eslint-disable-next-line no-console
       console.log('users>>>', this.users)
+      // eslint-disable-next-line no-console
+      console.log('messages>>>', JSON.stringify(this.messages))
+      // eslint-disable-next-line no-console
+      console.log('arr1>>>', JSON.stringify(this.messages.arr1))
       this.listen()
       // this.socket.on("userOnline", user => {
       //   this.users.push(user);
@@ -194,6 +203,8 @@ export default {
       console.log('listen: function()')
       this.socket.on('userOnline', user => {
         this.users.push(user)
+        // eslint-disable-next-line no-console
+        console.log('listen/messages>>>', JSON.stringify(this.messages))
         // eslint-disable-next-line no-console
         console.log('listen: function()//this.users', this.users)
       })
