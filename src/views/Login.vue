@@ -78,11 +78,12 @@ export default {
           console.log(res);
           if (res.data.success) {
             alert("สำเร็จ  >>");
-            let user = JSON.stringify(res.data.username);
+            let user = JSON.stringify(res.data);
             let type = JSON.stringify(res.data.type);
             // eslint-disable-next-line no-console
             console.log("user", user);
-            localStorage.setItem("userData", JSON.stringify(user));
+            localStorage.setItem("userData", user);
+            // localStorage.setItem("userData", JSON.stringify(user));
             localStorage.setItem("userData2", JSON.stringify(type));
             // eslint-disable-next-line no-console
             console.log("localStorage ", localStorage);
