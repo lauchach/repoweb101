@@ -35,7 +35,7 @@
           @chat-box
           <p class="online">Online: {{ users.length }}</p>
           <!-- <p class="online">Online: {{ createdAt }}</p> -->
-          <p class="online">test time: {{ time }}</p>
+          <p class="online">test time: {{ timex }}</p>
           <!-- Sender Message online users-->
           <div
             class="testitem"
@@ -142,6 +142,7 @@
 import io from 'socket.io-client'
 import ChatRoom from '../components/CompoChatroom'
 var moment = require('moment')
+
 // let time = new Date();
 export default {
   name: 'Chatroom',
@@ -154,7 +155,8 @@ export default {
       socket: io('http://localhost:3000'),
       messages: [],
       users: [],
-      time: []
+      time: [],
+      timex: moment(this.time).format('h:mm a')
     }
   },
   mounted: function() {
