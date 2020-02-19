@@ -54,20 +54,20 @@
 <script>
 // import { mapGetters } from "vuex";
 // eslint-disable-next-line no-console
-console.log("views/login>>>>");
+console.log('views/login>>>>')
 // import { mapActions } from "vuex";                                                                      // methods V.2.0
 export default {
-  name: "login",
+  name: 'login',
   data() {
     return {
-      email: "",
-      password: ""
-    };
+      email: '',
+      password: ''
+    }
   },
   // methods V.1.0
   methods: {
     loginUser() {
-      let uri = "http://localhost:4000/login/login";
+      let uri = 'http://localhost:4000/login/login'
       this.axios
         .post(uri, {
           email: this.email,
@@ -75,32 +75,34 @@ export default {
         })
         .then(res => {
           // eslint-disable-next-line no-console
-          console.log(res);
+          console.log(res)
           if (res.data.success) {
-            alert("สำเร็จ  >>");
-            let user = JSON.stringify(res.data);
+            alert('สำเร็จ  >>')
+            let user = JSON.stringify(res.data)
             // let type = JSON.stringify(res.data.type);
             // eslint-disable-next-line no-console
-            console.log("user", user);
-            localStorage.setItem("userData", user);
+            console.log('user', user)
+            localStorage.setItem('userData', user)
             // localStorage.setItem("userData", JSON.stringify(user));
             // localStorage.setItem("userData2", JSON.stringify(type));
             // eslint-disable-next-line no-console
-            console.log("localStorage ", localStorage);
+            console.log('localStorage ', localStorage)
             // eslint-disable-next-line no-console
-            console.log("localStorage>>> ", JSON.parse(localStorage.userData));
+            console.log('localStorage>>> ', JSON.parse(localStorage.userData))
             // eslint-disable-next-line no-console
-            console.log("localStorage222>>> ", JSON.parse(localStorage.userData2));
+            console.log(
+              'localStorage222>>> ',
+              JSON.parse(localStorage.userData2)
+            )
             // commit('auth_success', user);
-            this.$router.push("/Chatroom");
+            this.$router.push('/Chatroom')
           }
         })
         .catch(err => {
-          alert("ไม่สำเร็จ>>");
           // eslint-disable-next-line no-console
-          console.log(err);
-        });
+          console.log(err)
+        })
     }
   }
-};
+}
 </script>

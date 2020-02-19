@@ -1,19 +1,18 @@
 <template>
   <div class="container py-5 px-4">
-    <!-- For demo purpose-->
+    <div class="topright">
+      <button type="button" class="btn-btn-link" @click="logout">Logout</button>
+    </div>  
     <header class="text-center">
       <h1 class="display-4 text-white">ChatRoom</h1>
-      <p class="text-white lead mb-0">
-        <!-- An elegant chat widget compatible with Bootstrap 4 -->
-      </p>
+      <p class="text-white lead mb-0"></p>
       <p class="text-white lead mb-4">
         by
-        <a href="https://bootstrapious.com" class="text-white">
+        <a href="https://www.facebook.com/tarnapot.baikulab" class="text-white">
           <u>Tarnapot</u></a
         >
       </p>
     </header>
-
     <div class="row rounded-lg overflow-hidden shadow">
       <!-- Users box-->
       <div class="col-8 px-0">
@@ -35,7 +34,7 @@
         <div class="px-4 py-5 chat-box bg-white">
           @chat-box
           <p class="online">Online: {{ users.length }}</p>
-          <p class="online">Online: {{ createdAt }}</p>
+          <!-- <p class="online">Online: {{ createdAt }}</p> -->
           <p class="online">test time: {{ createdAt }}</p>
           <!-- Sender Message online users-->
           <div
@@ -223,6 +222,11 @@ export default {
       console.log('notnulljoinServer/function')
       this.$router.push('/')
     }
+    ,
+    logout: function() {
+      localStorage.clear()
+      this.$router.push('/')
+    }
   }
   // <div class="header">
   // <h1>Chatroom</h1>
@@ -292,5 +296,18 @@ body {
 input::placeholder {
   font-size: 0.9rem;
   color: #999;
+}
+
+.btn-btn-link{
+  // padding: 9px;
+  background: rgb(248, 248, 248);
+  border-radius: 0.5rem;
+  width: 75px;
+  height: 40px;
+}
+
+.topright{
+  position: relative;
+  margin-left: 92%;
 }
 </style>
