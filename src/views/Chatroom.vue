@@ -165,17 +165,11 @@ export default {
       // eslint-disable-next-line no-console
       console.log('erro')
     } else {
-      this.username = this.datauser.username
       this.joinServer()
-      this.socket.on('loggedIn', data => {
-        this.users = data.users
-        this.messages = data.messages
-        this.time = data.time
-      })
       this.socket.on('userOnline', user => {
         this.users.push(user)
         // eslint-disable-next-line no-console
-        console.log('listen/messages>>>', JSON.stringify(this.messages))
+        // console.log('listen/messages>>>', JSON.parse(this.messages))
         // eslint-disable-next-line no-console
         console.log('userOnline//this.users', this.users)
       })
@@ -185,16 +179,18 @@ export default {
       this.socket.on('msg', message => {
         this.messages.push(message)
       })
+      this.socket.on('getResult', message => {
+        this.messages.push(message)
+        // eslint-disable-next-line no-console
+        console.log('getResult', this.messages)
+      })
       // eslint-disable-next-line no-console
       console.log('mounted/this.username', this.datauser.username)
     }
   },
   methods: {
     joinServer: function() {
-      // eslint-disable-next-line no-console
-      console.log('username', this.username)
-      this.socket.emit('newuser', this.username)
-      // })
+      this.socket.emit('newuser', this.datauser.username)
       // eslint-disable-next-line no-console
       console.log(moment(this.createdAt).format('h:mm a'))
       // eslint-disable-next-line no-console

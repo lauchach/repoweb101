@@ -1,4 +1,3 @@
-
 <template>
   <div class="limiter">
     <div class="container-login100">
@@ -81,20 +80,20 @@
 <script>
 // import { mapActions } from "vuex";                                                                      // methods V.2.0
 export default {
-  name: "register",
+  name: 'register',
   data() {
     return {
-      username: "",
-      email: "",
-      password: "",
-      confirm_password: "",
-      type: "user"
-    };
+      username: '',
+      email: '',
+      password: '',
+      confirm_password: '',
+      type: 'user'
+    }
   },
   // methods V.1.0
   methods: {
     registerUser() {
-      let uri = "http://localhost:4000/indexx/";
+      let uri = 'http://localhost:4000/indexx/'
       this.axios
         .post(uri, {
           username: this.username,
@@ -105,14 +104,14 @@ export default {
         })
         .then(res => {
           if (res.data.success) {
-            alert("สำเร็จ  >>");
-            this.$router.push("/login");
+            alert('สำเร็จ  >>')
+            this.$router.push('/login')
           }
         })
         .catch(err => {
           // eslint-disable-next-line no-console
-          console.log(err);
-        });
+          console.log(err)
+        })
     }
   }
   // methods V.2.0
@@ -133,5 +132,5 @@ export default {
   //     });
   //   }
   // }
-};
+}
 </script>

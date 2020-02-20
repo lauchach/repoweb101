@@ -44,6 +44,10 @@ export default {
       this.$emit('sendMessage', this.msg)
       this.msg = ''
     }
+  },
+  created() {
+    // eslint-disable-next-line no-console
+    console.log('message.msg', this.message)
   }
 }
 </script>
@@ -79,12 +83,12 @@ export default {
       .message-text {
         flex: 1;
         // width: 50px;
-        // background: red; 
+        // background: red;
       }
       .message-time {
         // flex: 1;
         // background: yellow;
-        padding-right: 0
+        padding-right: 0;
       }
     }
   }
