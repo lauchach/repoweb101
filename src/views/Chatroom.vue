@@ -44,6 +44,7 @@
           >
             <div class="users-box">🟢{{ testitem }}</div>
           </div>
+
           <!-- <div class="media w-50 mb-3">
             <img
               src="https://res.cloudinary.com/mhmd/image/upload/v1564960395/avatar_usae7z.svg"
@@ -157,6 +158,7 @@ export default {
       users: [],
       time: [],
       timex: moment(this.time).format('h:mm a')
+      // usersx:[]
     }
   },
   mounted: function() {
@@ -169,20 +171,27 @@ export default {
       this.socket.on('userOnline', user => {
         this.users.push(user)
         // eslint-disable-next-line no-console
-        // console.log('listen/messages>>>', JSON.parse(this.messages))
-        // eslint-disable-next-line no-console
-        console.log('userOnline//this.users', this.users)
+        console.log('userOnline////////////////////////this.users', this.users)
       })
       this.socket.on('userOut', user => {
         this.users.splice(this.users.indexOf(user), 1)
       })
+      this.socket.on('getResult', message => {
+        // eslint-disable-next-line no-console
+        console.log('message>>', message.messages)
+        var messagess = message.messages
+        var len = messagess.length
+        for (var i = 0; i < len; i++) {
+          // eslint-disable-next-line no-console
+          // console.log('messagess[i]>>>', messagess[i])
+          this.messages.push(messagess[i])
+          // eslint-disable-next-line no-console
+          // console.log('getResult this.messages>>', this.messages)
+        }
+      })
       this.socket.on('msg', message => {
         this.messages.push(message)
-      })
-      this.socket.on('getResult', message => {
-        this.messages.push(message)
-        // eslint-disable-next-line no-console
-        console.log('getResult', this.messages)
+        //  this.reUser()
       })
       // eslint-disable-next-line no-console
       console.log('mounted/this.username', this.datauser.username)
@@ -190,21 +199,30 @@ export default {
   },
   methods: {
     joinServer: function() {
-      this.socket.emit('newuser', this.datauser.username)
-      // eslint-disable-next-line no-console
-      console.log(moment(this.createdAt).format('h:mm a'))
-      // eslint-disable-next-line no-console
-      console.log('s.username', this.data)
-      // eslint-disable-next-line no-console
-      console.log('users>>>', this.users)
-      // eslint-disable-next-line no-console
-      console.log('messages>>>', JSON.stringify(this.messages))
-      // eslint-disable-next-line no-console
-      console.log('arr1>>>', JSON.stringify(this.messages.arr1))
+      this.socket.on('loggedIn', data => {
+        this.users = data.users
+        // eslint-disable-next-line no-console
+        console.log('users>>>', this.users)
+        // this.socket.emit('newuser', this.username);
+
+        this.socket.emit('newuser', this.datauser.username)
+        // eslint-disable-next-line no-console
+        console.log(moment(this.createdAt).format('h:mm a'))
+        // eslint-disable-next-line no-console
+        console.log('s.username', this.data)
+
+        // eslint-disable-next-line no-console
+        console.log('messages>>>', JSON.stringify(this.messages))
+      })
     },
     sendMessage: function(message) {
       this.socket.emit('msg', message)
+      // eslint-disable-next-line no-console
+      console.log('sendMessage:')
     },
+    // reUser: function() {
+    //   this.socket.emit('reUser')
+    // },
     notnulljoinServer: function() {
       // eslint-disable-next-line no-console
       console.log('notnulljoinServer/function')
@@ -213,6 +231,7 @@ export default {
     logout: function() {
       localStorage.clear()
       this.$router.push('/')
+      this.socket.emit('logOut')
     }
   }
 }
