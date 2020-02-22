@@ -3,6 +3,8 @@
     <div class="messages">
       <div class="message" v-for="message in messages" :key="message.id">
         <div class="username">{{ message.username }}</div>
+        <div v-if=" message.username  === 'lauchach'" class="message-type">@👨‍💻</div>
+        <div v-else class="message-type2"></div>
         <div class="message-text">{{ message.msg }}</div>
         <div class="message-time">{{ message.time }}</div>
       </div>
@@ -24,6 +26,7 @@ export default {
     return {
       msg: '',
       datauser: JSON.parse(localStorage.getItem('userData'))
+      // type: this.datauser.type
     }
   },
   methods: {
@@ -40,6 +43,9 @@ export default {
   created() {
     // eslint-disable-next-line no-console
     console.log('message.msg', this.messages)
+        // eslint-disable-next-line no-console
+    console.log('type>>>>>>>>>>>>>>>>>>>>>>>>.  ', this.datauser.type)
+
   }
 }
 </script>
@@ -70,6 +76,14 @@ export default {
       .username {
         width: 100px;
         margin-right: 15px;
+      }
+
+      .message-type {
+        // text-shadow: red;
+        // flex: 1;
+        // background: rgb(196, 196, 255);
+        // width: 50px;
+        // background: red;
       }
 
       .message-text {
