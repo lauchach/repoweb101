@@ -64,7 +64,7 @@
 </template>
 
 <script>
-import io from 'socket.io-client'
+// import io from 'socket.io-client'
 import ChatRoom from '../components/CompoChatroom'
 var moment = require('moment')
 
@@ -76,12 +76,32 @@ export default {
   data() {
     return {
       datauser: JSON.parse(localStorage.getItem('userData')),
-      socket: io('http://localhost:3000'),
+      // socket: io('http://localhost:3000'),
       messages: [],
       users: [],
       time: [],
       timex: moment().format('LTS')
     }
+  },
+  sockets: {
+    connect: function() {
+      // this.joinServer()
+      // eslint-disable-next-line no-console
+      console.log('socket connected//connection')
+    }
+    // ,
+    // loggedIn: function() {
+    //   data => {
+    //     this.messages = data.messages
+    //     this.users = data.users
+    //   }
+    // }
+    // ,
+    // customEmit: function(data) {
+    //   console.log(
+    //     'this method was fired by the socket server. eg: io.emit("customEmit", data)'
+    //   )
+    // }
   },
   mounted: function() {
     this.username = this.datauser.username
@@ -109,8 +129,9 @@ export default {
   },
   methods: {
     joinServer: function() {
-      this.socket.emit('newuser', this.username)
-    },
+      this.$socket.emit('newuser', this.username)
+    }
+    ,
     sendMessage: function(message) {
       this.socket.emit('msg', message)
     },

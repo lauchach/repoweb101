@@ -16,8 +16,22 @@ Vue.component('Login', require('./components/Login.vue').default)
 
 import axios from 'axios'
 import VueAxios from 'vue-axios'
+import VueSocketIO from 'vue-socket.io'
+import SocketIO from 'socket.io-client'
 
 Vue.use(VueAxios, axios)
+
+Vue.use(
+  new VueSocketIO({
+    debug: true,
+    connection: SocketIO('http://localhost:3000/'), //options object is Optional
+    vuex: {
+      store,
+      actionPrefix: 'SOCKET_',
+      mutationPrefix: 'SOCKET_'
+    }
+  })
+)
 
 new Vue({
   router,
