@@ -45,7 +45,7 @@
           <div class="px-4 py-5 chat-box bg-white">
             @chat-box
             <p class="username">Username: {{ username }}</p>
-            <p class="online">Online: {{ users.length }}</p>
+            <!-- <p class="online">Online: {{ users.length }}</p> -->
             <!-- <p class="online">Online: {{ createdAt }}</p> -->
             <p class="online">test time: {{ timex }}</p>
             <!-- Sender Message online users-->
@@ -89,57 +89,27 @@ export default {
       console.log('socket connected//connection')
     },
     userOnline: function(user) {
+      // eslint-disable-next-line no-console
+      console.log('data.users^^^param^^^', this.users)
       this.users.push(user)
+      // eslint-disable-next-line no-console
+      console.log('data.users^^^^', this.users)
     },
     userLeft: function(user) {
-      this.users.splice(this.users.indexOf(user), 1)
+      this.users.indexOf(this.users.includes(user), 1)
     },
     msg: function(message) {
       this.messages.push(message)
     },
     loggedIn: function(data) {
       // eslint-disable-next-line no-console
-      console.log('this.joinServer>>>')
+      console.log('data', data)
+      // eslint-disable-next-line no-console
+      console.log('this.loggedIn>>>')
       this.messages = data.messages
       this.users = data.users
-      // this.joinServer()
+      
     }
-    // ,
-    // loggedIn: function() {
-    //   data => {
-    //     this.messages = data.messages
-    //     this.users = data.users
-    //   }
-    // }
-    // ,
-    // customEmit: function(data) {
-    //   console.log(
-    //     'this method was fired by the socket server. eg: io.emit("customEmit", data)'
-    //   )
-    // }
-    // mounted: function() {
-    //   // this.username = this.datauser.username
-
-    //   if (!this.username) {
-    //     this.$router.push('/')
-    //     // eslint-disable-next-line no-console
-    //     console.log('erro')
-    //   } else {
-    //     // this.socket.on('loggedIn', data => {
-    //     //   this.messages = data.messages
-    //     //   this.users = data.users
-    //     // })
-    //     // this.socket.on('userOnline', user => {
-    //     //   this.users.push(user)
-    //     // })
-    //     // this.socket.on('userLeft', user => {
-    //     //   this.users.splice(this.users.indexOf(user), 1)
-    //     // })
-    //     // this.socket.on('msg', message => {
-    //     //   this.messages.push(message)
-    //     // })
-    //     // this.joinServer()
-    //   }
   },
   methods: {
     joinServer: function() {
@@ -147,6 +117,8 @@ export default {
       // eslint-disable-next-line no-console
       console.log(true)
       this.$socket.emit('newuser', this.username)
+      // eslint-disable-next-line no-console
+      console.log('true newuser', this.username)
     },
     sendMessage: function(message) {
       this.$socket.emit('msg', message)
@@ -159,7 +131,7 @@ export default {
     logout: function() {
       localStorage.clear()
       this.$router.push('/')
-      // this.socket.emit('logOut')
+      this.$socket.emit('logOut', this.username)
     }
   }
 }

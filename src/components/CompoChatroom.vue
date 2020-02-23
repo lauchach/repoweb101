@@ -3,7 +3,9 @@
     <div class="messages">
       <div class="message" v-for="message in messages" :key="message.id">
         <div class="username">{{ message.username }}</div>
-        <div v-if=" message.username  === 'lauchach'" class="message-type">@👨‍💻</div>
+        <div v-if="message.username === 'lauchach'" class="message-type">
+          @👨‍💻
+        </div>
         <div v-else class="message-type2"></div>
         <div class="message-text">{{ message.msg }}</div>
         <div class="message-time">{{ message.time }}</div>
@@ -77,13 +79,13 @@ export default {
         margin-right: 15px;
       }
 
-      .message-type {
-        // text-shadow: red;
-        // flex: 1;
-        // background: rgb(196, 196, 255);
-        // width: 50px;
-        // background: red;
-      }
+      // .message-type {
+      //   // text-shadow: red;
+      //   // flex: 1;
+      //   // background: rgb(196, 196, 255);
+      //   // width: 50px;
+      //   // background: red;
+      // }
 
       .message-text {
         flex: 1;

@@ -92,7 +92,7 @@ export default {
         console.log('message>>', message.messages)
         var messagess = message.messages
         var len = messagess.length
-        for (var i = 0; i < len; i++) {
+        for (let i = 0; i < len; i++) {
           // eslint-disable-next-line no-console
           // console.log('messagess[i]>>>', messagess[i])
           this.messages.push(messagess[i])
