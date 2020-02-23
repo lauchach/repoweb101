@@ -49,12 +49,8 @@
             <!-- <p class="online">Online: {{ createdAt }}</p> -->
             <p class="online">test time: {{ timex }}</p>
             <!-- Sender Message online users-->
-            <div
-              class="testitem"
-              v-for="(testitem, user) in users"
-              :key="'ing' + user"
-            >
-              <div class="users-box">🟢{{ testitem }}</div>
+            <div class="testitem" v-for="user in users" :key="'ing' + user">
+              <div class="users-box">🟢{{ user }}</div>
             </div>
           </div>
         </div>
@@ -80,14 +76,33 @@ export default {
       messages: [],
       users: [],
       time: [],
-      timex: moment().format('LTS')
+      timex: moment().format('LTS'),
+      username: JSON.parse(localStorage.getItem('userData')).username
     }
+  },
+  created() {
+    this.joinServer()
   },
   sockets: {
     connect: function() {
-      // this.joinServer()
       // eslint-disable-next-line no-console
       console.log('socket connected//connection')
+    },
+    userOnline: function(user) {
+      this.users.push(user)
+    },
+    userLeft: function(user) {
+      this.users.splice(this.users.indexOf(user), 1)
+    },
+    msg: function(message) {
+      this.messages.push(message)
+    },
+    loggedIn: function(data) {
+      // eslint-disable-next-line no-console
+      console.log('this.joinServer>>>')
+      this.messages = data.messages
+      this.users = data.users
+      // this.joinServer()
     }
     // ,
     // loggedIn: function() {
@@ -102,38 +117,39 @@ export default {
     //     'this method was fired by the socket server. eg: io.emit("customEmit", data)'
     //   )
     // }
-  },
-  mounted: function() {
-    this.username = this.datauser.username
+    // mounted: function() {
+    //   // this.username = this.datauser.username
 
-    if (!this.username) {
-      this.$router.push('/')
-      // eslint-disable-next-line no-console
-      console.log('erro')
-    } else {
-      this.socket.on('loggedIn', data => {
-        this.messages = data.messages
-        this.users = data.users
-      })
-      this.socket.on('userOnline', user => {
-        this.users.push(user)
-      })
-      this.socket.on('userLeft', user => {
-        this.users.splice(this.users.indexOf(user), 1)
-      })
-      this.socket.on('msg', message => {
-        this.messages.push(message)
-      })
-      this.joinServer()
-    }
+    //   if (!this.username) {
+    //     this.$router.push('/')
+    //     // eslint-disable-next-line no-console
+    //     console.log('erro')
+    //   } else {
+    //     // this.socket.on('loggedIn', data => {
+    //     //   this.messages = data.messages
+    //     //   this.users = data.users
+    //     // })
+    //     // this.socket.on('userOnline', user => {
+    //     //   this.users.push(user)
+    //     // })
+    //     // this.socket.on('userLeft', user => {
+    //     //   this.users.splice(this.users.indexOf(user), 1)
+    //     // })
+    //     // this.socket.on('msg', message => {
+    //     //   this.messages.push(message)
+    //     // })
+    //     // this.joinServer()
+    //   }
   },
   methods: {
     joinServer: function() {
+      // this.$socket.broadcast.emit('newuser', this.username)
+      // eslint-disable-next-line no-console
+      console.log(true)
       this.$socket.emit('newuser', this.username)
-    }
-    ,
+    },
     sendMessage: function(message) {
-      this.socket.emit('msg', message)
+      this.$socket.emit('msg', message)
     },
     notnulljoinServer: function() {
       // eslint-disable-next-line no-console
@@ -143,7 +159,7 @@ export default {
     logout: function() {
       localStorage.clear()
       this.$router.push('/')
-      this.socket.emit('logOut')
+      // this.socket.emit('logOut')
     }
   }
 }

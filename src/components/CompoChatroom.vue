@@ -34,8 +34,8 @@ export default {
       if (!this.datauser.username) {
         alert('time out')
       }
-// eslint-disable-next-line no-console
-    console.log('>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>.')
+      // eslint-disable-next-line no-console
+      console.log('>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>.')
       this.$emit('sendMessage', this.msg)
       this.msg = ''
     }
@@ -43,9 +43,8 @@ export default {
   created() {
     // eslint-disable-next-line no-console
     console.log('message.msg', this.messages)
-        // eslint-disable-next-line no-console
+    // eslint-disable-next-line no-console
     console.log('type>>>>>>>>>>>>>>>>>>>>>>>>.  ', this.datauser.type)
-
   }
 }
 </script>
