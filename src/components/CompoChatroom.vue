@@ -1,26 +1,20 @@
 <template>
   <div class="chat-window">
     <div class="messages">
-      <div class="message" v-for="message in messages" v-bind:key="message._id">
+      <div class="message" v-for="message in messages" :key="message.id">
         <div class="username">{{ message.username }}</div>
+        <div v-if=" message.username  === 'lauchach'" class="message-type">@👨‍💻</div>
+        <div v-else class="message-type2"></div>
         <div class="message-text">{{ message.msg }}</div>
         <div class="message-time">{{ message.time }}</div>
       </div>
     </div>
     <form class="input-container" v-on:submit="sendMessage">
       <p type="text">{{ this.datauser.username }}:</p>
-      <!-- <input
-        id="email"
-        type="text"
-        placeholder="Email"
-        name="email"
-        v-model="email"
-        class="input100"
-      /> -->
+
       <input type="text" v-model="msg" />
       <button v-on:click="sendMessage" v-bind:disabled="!msg">Send</button>
     </form>
-    <!-- <div class="text">{{ messages }}</div> -->
   </div>
 </template>
 
@@ -32,22 +26,25 @@ export default {
     return {
       msg: '',
       datauser: JSON.parse(localStorage.getItem('userData'))
+      // type: this.datauser.type
     }
   },
   methods: {
     sendMessage: function() {
-      if (!this.msg) {
-        alert('Please enter a message')
-        return
+      if (!this.datauser.username) {
+        alert('time out')
       }
-
+      // eslint-disable-next-line no-console
+      console.log('>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>.')
       this.$emit('sendMessage', this.msg)
       this.msg = ''
     }
   },
   created() {
     // eslint-disable-next-line no-console
-    console.log('message.msg', this.message)
+    console.log('message.msg', this.messages)
+    // eslint-disable-next-line no-console
+    console.log('type>>>>>>>>>>>>>>>>>>>>>>>>.  ', this.datauser.type)
   }
 }
 </script>
@@ -78,6 +75,14 @@ export default {
       .username {
         width: 100px;
         margin-right: 15px;
+      }
+
+      .message-type {
+        // text-shadow: red;
+        // flex: 1;
+        // background: rgb(196, 196, 255);
+        // width: 50px;
+        // background: red;
       }
 
       .message-text {
