@@ -79,13 +79,13 @@ export default {
         margin-right: 15px;
       }
 
-      // .message-type {
-      //   // text-shadow: red;
+      .message-type {
+        color: red;
       //   // flex: 1;
       //   // background: rgb(196, 196, 255);
       //   // width: 50px;
       //   // background: red;
-      // }
+      }
 
       .message-text {
         flex: 1;

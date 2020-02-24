@@ -96,19 +96,17 @@ export default {
       console.log('data.users^^^^', this.users)
     },
     userLeft: function(user) {
-      this.users.indexOf(this.users.includes(user), 1)
+      // this.users.indexOf(this.users.includes(user), 1)
+      this.users.splice(this.users.indexOf(user), 1);
     },
     msg: function(message) {
       this.messages.push(message)
     },
     loggedIn: function(data) {
       // eslint-disable-next-line no-console
-      console.log('data', data)
-      // eslint-disable-next-line no-console
-      console.log('this.loggedIn>>>')
+      console.log('this.loggedIn>>>data>>>>>>', data)
       this.messages = data.messages
       this.users = data.users
-      
     }
   },
   methods: {
