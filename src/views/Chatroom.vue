@@ -36,6 +36,7 @@
               <ChatRoom
                 v-bind:messages="messages"
                 v-on:sendMessage="this.sendMessage"
+                v-bind:username="username"
               />
             </div>
           </div>
@@ -49,7 +50,7 @@
             <!-- <p class="online">Online: {{ createdAt }}</p> -->
             <p class="online">test time: {{ timex }}</p>
             <!-- Sender Message online users-->
-            <div class="testitem" v-for="user in users" :key="'ing' + user">
+            <div class="testitem" v-for="user in users" :key="user.id">
               <div class="users-box">🟢{{ user }}</div>
             </div>
           </div>
@@ -63,6 +64,14 @@
 // import io from 'socket.io-client'
 import ChatRoom from '../components/CompoChatroom'
 var moment = require('moment')
+// function ss() {
+//   this.users.find(item => {
+//     return item % this.username === 'kal'
+//   })
+//   // eslint-disable-next-line no-undef
+//   // eslint-disable-next-line no-console
+//   console.log('SuserName', ss())
+// }
 
 export default {
   name: 'app',
@@ -77,7 +86,12 @@ export default {
       users: [],
       time: [],
       timex: moment().format('LTS'),
-      username: JSON.parse(localStorage.getItem('userData')).username
+      username: JSON.parse(localStorage.getItem('userData')).username,
+      type: JSON.parse(localStorage.getItem('userData')).type,
+      data: [],
+      Susers: [],
+      x: ['kal', 'Benz', 'aaa']
+      // Susername: Boolean
     }
   },
   created() {
@@ -90,14 +104,15 @@ export default {
     },
     userOnline: function(user) {
       // eslint-disable-next-line no-console
-      console.log('data.users^^^param^^^', this.users)
-      this.users.push(user)
+      console.log('data.users^^^param^^^', user)
+      this.users.push(JSON.stringify(user).users)
       // eslint-disable-next-line no-console
       console.log('data.users^^^^', this.users)
+      this.users = user.users
     },
     userLeft: function(user) {
       // this.users.indexOf(this.users.includes(user), 1)
-      this.users.splice(this.users.indexOf(user), 1);
+      this.users.splice(this.users.indexOf(user), 1)
     },
     msg: function(message) {
       this.messages.push(message)
@@ -106,18 +121,58 @@ export default {
       // eslint-disable-next-line no-console
       console.log('this.loggedIn>>>data>>>>>>', data)
       this.messages = data.messages
-      this.users = data.users
+      // this.users = data.users
+      // this.usersOnline.push(data.users)
+      // this.userOnline()
+    },
+    connectionone: function(user) {
+      // eslint-disable-next-line no-console
+      console.log('connectionone>>>data>>>>>>', user)
     }
   },
   methods: {
     joinServer: function() {
       // this.$socket.broadcast.emit('newuser', this.username)
       // eslint-disable-next-line no-console
-      console.log(true)
-      this.$socket.emit('newuser', this.username)
+      console.log('this.Susername', this.Susername)
       // eslint-disable-next-line no-console
-      console.log('true newuser', this.username)
+      console.log('true newuser', this.username, 'type: this.type', this.type)
+      // eslint-disable-next-line no-console
+      console.log('this.users^^^', this.users)
+      // let Susername = this.users.find(item => {
+      //   return item % this.username === 'kal'
+      // })
+      // var length = this.users.length
+      // for (var i = 0; i < length; i++) {
+      //   this.Susers.push(this.users[i])
+      // }
+      // for (let i = 0; i < this.x.length; i++) {
+      if (this.username === this.x) {
+        alert('if')
+        // eslint-disable-next-line no-console
+        console.log('if')
+      } else {
+        this.$socket.emit('newuser', {
+          username: this.username,
+          type: this.datauser.type
+        })
+        // eslint-disable-next-line no-console
+        console.log('else')
+      }
+
+      // eslint-disable-next-line no-console
+      console.log('this.users!!!!!', this.users)
+      // this.$socket.emit('newuser', {
+      //   username: this.username,
+      //   type: this.datauser.type
+      // })
+      // }
     },
+    // userOnline: function() {
+    //   // eslint-disable-next-line no-console
+    //   console.log('userOnline: function(data)^^^', this.data)
+    //   this.users.push(this.data)
+    // },
     sendMessage: function(message) {
       this.$socket.emit('msg', message)
     },
@@ -131,6 +186,14 @@ export default {
       this.$router.push('/')
       this.$socket.emit('logOut', this.username)
     }
+    // SuserName: function ss() {
+    //   this.users.find(item => {
+    //     return item % this.username === 'kal'
+    //   })
+    // // eslint-disable-next-line no-undef
+    //   // eslint-disable-next-line no-console
+    //   console.log('SuserName', ss())
+    // }
   }
 }
 </script>

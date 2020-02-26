@@ -3,7 +3,7 @@
     <div class="messages">
       <div class="message" v-for="message in messages" :key="message.id">
         <div class="username">{{ message.username }}</div>
-        <div v-if="message.username === 'lauchach'" class="message-type">
+        <div v-if="message.type === 'admin'" class="message-type">
           @👨‍💻
         </div>
         <div v-else class="message-type2"></div>
@@ -12,7 +12,7 @@
       </div>
     </div>
     <form class="input-container" v-on:submit="sendMessage">
-      <p type="text">{{ this.datauser.username }}:</p>
+      <p type="text">{{ username }}:</p>
 
       <input type="text" v-model="msg" />
       <button v-on:click="sendMessage" v-bind:disabled="!msg">Send</button>
@@ -23,7 +23,7 @@
 <script>
 export default {
   name: 'compoChatroom',
-  props: ['messages'],
+  props: ['messages', 'username'],
   data: function() {
     return {
       msg: '',
@@ -81,10 +81,10 @@ export default {
 
       .message-type {
         color: red;
-      //   // flex: 1;
-      //   // background: rgb(196, 196, 255);
-      //   // width: 50px;
-      //   // background: red;
+        //   // flex: 1;
+        //   // background: rgb(196, 196, 255);
+        //   // width: 50px;
+        //   // background: red;
       }
 
       .message-text {
