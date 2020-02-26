@@ -80,7 +80,6 @@ export default {
   data() {
     return {
       datauser: JSON.parse(localStorage.getItem('userData')),
-      // socket: io('http://localhost:3000'),
       messages: [],
       users: [],
       time: [],
@@ -92,6 +91,9 @@ export default {
   },
   created() {
     this.joinServer()
+    // eslint-disable-next-line no-console
+    console.log('a')
+    this.users = []
   },
   sockets: {
     connect: function() {
@@ -99,12 +101,14 @@ export default {
       console.log('socket connected//connection')
     },
     userOnline: function(user) {
-      // eslint-disable-next-line no-console
+      // ต้องสร้างห้อง bไปหาคนอื่นยกเว็นตัวเอง
+      // eslint-disable-next-line no-console 
       console.log('data.users^^^param^^^', user)
-      this.users.push(JSON.stringify(user).users)
+      this.users = []
+      this.users = user.users
       // eslint-disable-next-line no-console
       console.log('data.users^^^^', this.users)
-      this.users = user.users
+      // this.users = user.users
     },
     userLeft: function(user) {
       // this.users.indexOf(this.users.includes(user), 1)
@@ -112,6 +116,7 @@ export default {
     },
     msg: function(message) {
       this.messages.push(message)
+      this.$scrollToEnd
     },
     loggedIn: function(data) {
       // eslint-disable-next-line no-console
@@ -135,34 +140,12 @@ export default {
       console.log('true newuser', this.username, 'type: this.type', this.type)
       // eslint-disable-next-line no-console
       console.log('this.users^^^', this.users)
-      // let Susername = this.users.find(item => {
-      //   return item % this.username === 'kal'
-      // })
-      // var length = this.users.length
-      // for (var i = 0; i < length; i++) {
-      //   this.Susers.push(this.users[i])
-      // }
-      // for (let i = 0; i < this.x.length; i++) {
-      if (this.username === this.users) {
-        alert('if')
-        // eslint-disable-next-line no-console
-        console.log('if')
-      } else {
-        this.$socket.emit('newuser', {
-          username: this.username,
-          type: this.datauser.type
-        })
-        // eslint-disable-next-line no-console
-        console.log('else')
-      }
-
+      this.$socket.emit('newuser', {
+        username: this.username,
+        type: this.datauser.type
+      })
       // eslint-disable-next-line no-console
       console.log('this.users!!!!!', this.users)
-      // this.$socket.emit('newuser', {
-      //   username: this.username,
-      //   type: this.datauser.type
-      // })
-      // }
     },
     // userOnline: function() {
     //   // eslint-disable-next-line no-console

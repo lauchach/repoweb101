@@ -105,7 +105,7 @@ export default {
         .then(res => {
           if (res.data.success) {
             alert('สำเร็จ  >>')
-            this.$router.push('/login')
+            this.$router.push('/')
           }
         })
         .catch(err => {

@@ -42,7 +42,6 @@ export default {
         this.msg = ''
         // var container = document.querySelector('.messages')
         // container.scrollTop = container.scrollHeight
-        ((this.scrollToEnd),2000)
       }
     },
     scrollToEnd() {
