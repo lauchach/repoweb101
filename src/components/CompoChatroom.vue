@@ -35,11 +35,22 @@ export default {
     sendMessage: function() {
       if (!this.datauser.username) {
         alert('time out')
+      } else {
+        // eslint-disable-next-line no-console
+        console.log('>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>.')
+        this.$emit('sendMessage', this.msg)
+        this.msg = ''
+        // var container = document.querySelector('.messages')
+        // container.scrollTop = container.scrollHeight
+        ((this.scrollToEnd),2000)
       }
-      // eslint-disable-next-line no-console
-      console.log('>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>.')
-      this.$emit('sendMessage', this.msg)
-      this.msg = ''
+    },
+    scrollToEnd() {
+      var container = document.querySelector('.messages')
+      container.scrollTop = container.scrollHeight
+      // var container = document.querySelector(".messages")
+      // var scrollHeight = container.scrollHeight
+      // container.scrollTop = scrollHeight
     }
   },
   created() {
@@ -47,6 +58,9 @@ export default {
     console.log('message.msg', this.messages)
     // eslint-disable-next-line no-console
     console.log('type>>>>>>>>>>>>>>>>>>>>>>>>.  ', this.datauser.type)
+  },
+  mounted() {
+    this.scrollToEnd()
   }
 }
 </script>

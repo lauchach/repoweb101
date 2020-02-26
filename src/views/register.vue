@@ -87,7 +87,7 @@ export default {
       email: '',
       password: '',
       confirm_password: '',
-      type: 'user'
+      type: 'member'
     }
   },
   // methods V.1.0

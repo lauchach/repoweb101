@@ -61,7 +61,6 @@
 </template>
 
 <script>
-// import io from 'socket.io-client'
 import ChatRoom from '../components/CompoChatroom'
 var moment = require('moment')
 // function ss() {
@@ -88,10 +87,7 @@ export default {
       timex: moment().format('LTS'),
       username: JSON.parse(localStorage.getItem('userData')).username,
       type: JSON.parse(localStorage.getItem('userData')).type,
-      data: [],
-      Susers: [],
-      x: ['kal', 'Benz', 'aaa']
-      // Susername: Boolean
+      data: []
     }
   },
   created() {
@@ -147,7 +143,7 @@ export default {
       //   this.Susers.push(this.users[i])
       // }
       // for (let i = 0; i < this.x.length; i++) {
-      if (this.username === this.x) {
+      if (this.username === this.users) {
         alert('if')
         // eslint-disable-next-line no-console
         console.log('if')
