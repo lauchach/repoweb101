@@ -87,7 +87,8 @@ export default {
       username: JSON.parse(localStorage.getItem('userData')).username,
       type: JSON.parse(localStorage.getItem('userData')).type,
       data: [],
-      testOut: []
+      testOut: [],
+      ischackmathusername: false
     }
   },
   created() {
@@ -138,19 +139,88 @@ export default {
   },
   methods: {
     joinServer: function() {
-      // this.$socket.broadcast.emit('newuser', this.username)
       // eslint-disable-next-line no-console
-      console.log('this.Susername', this.Susername)
-      // eslint-disable-next-line no-console
-      console.log('true newuser', this.username, 'type: this.type', this.type)
-      // eslint-disable-next-line no-console
-      console.log('this.users^^^', this.users)
-      this.$socket.emit('newuser', {
-        username: this.username,
-        type: this.datauser.type
-      })
-      // eslint-disable-next-line no-console
-      console.log('this.users!!!!!', this.users)
+      console.log('joinServer: function()(this.users.length', this.users.length)
+
+      if (this.users.length > 0) {
+        // eslint-disable-next-line no-console
+        console.log('joinServer: function() if > 0', this.users.length)
+        this.$socket.emit('newuser', {
+          username: this.username,
+          type: this.datauser.type
+        })
+      } else {
+        for (let i = 0; i < this.users.length; i++) {
+          if (this.username === this.users[i]) {
+            // eslint-disable-next-line no-console
+            console.log('if')
+            this.ischackmathusername = true
+            // eslint-disable-next-line no-console
+            console.log(this.ischackmathusername)
+          } else {
+            // eslint-disable-next-line no-console
+            console.log('else')
+            if (this.ischackmathusername === false) {
+              this.$socket.emit('newuser', {
+                username: this.username,
+                type: this.datauser.type
+              })
+              // eslint-disable-next-line no-console
+              console.log(
+                'else/else/if this.ischackmathusername',
+                this.ischackmathusername
+              )
+            } else {
+              // eslint-disable-next-line no-console
+              console.log(
+                'else/else/else this.ischackmathusername',
+                this.ischackmathusername
+              )
+            }
+          }
+        }
+      }
+
+      // if (this.users.length > 0) {
+      //   // eslint-disable-next-line no-console
+      //   console.log('joinServer: function() if > 0', this.users.length)
+      //   this.$socket.emit('newuser', {
+      //     username: this.username,
+      //     type: this.datauser.type
+      //   })
+      // } else {
+      //   // eslint-disable-next-line no-console
+      //   console.log('joinServer: function() else', this.users.length)
+      //   for (let i = 0; i < this.users.length; i++) {
+      //     if (this.username === this.users[i]) {
+      //       // eslint-disable-next-line no-console
+      //       console.log('this user.length', this.users.length, '/if')
+      //       this.ischackmathusername = true
+      //     } else {
+      //       // eslint-disable-next-line no-console
+      //       console.log('else')
+      //       // eslint-disable-next-line no-console
+      //       console.log('else/else this.ischackmathusername',this.ischackmathusername)
+      //       if (this.ischackmathusername === false) {
+      //         this.$socket.emit('newuser', {
+      //           username: this.username,
+      //           type: this.datauser.type
+      //         })
+      //         // eslint-disable-next-line no-console
+      //         console.log(
+      //           'else/else/if this.ischackmathusername',
+      //           this.ischackmathusername
+      //         )
+      //       } else {
+      //         // eslint-disable-next-line no-console
+      //         console.log(
+      //           'else/else/else this.ischackmathusername',
+      //           this.ischackmathusername
+      //         )
+      //       }
+      //     }
+      //   }
+      // }
     },
     // userOnline: function() {
     //   // eslint-disable-next-line no-console
