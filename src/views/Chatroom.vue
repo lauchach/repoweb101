@@ -50,7 +50,7 @@
             <!-- <p class="online">Online: {{ createdAt }}</p> -->
             <p class="online">test time: {{ timex }}</p>
             <!-- Sender Message online users-->
-            <div class="testitem" v-for="user in users" :key="user.id">
+            <div class="testitem" v-for="user in users" :key="user">
               <div class="users-box">🟢{{ user }}</div>
             </div>
           </div>
@@ -86,7 +86,8 @@ export default {
       timex: moment().format('LTS'),
       username: JSON.parse(localStorage.getItem('userData')).username,
       type: JSON.parse(localStorage.getItem('userData')).type,
-      data: []
+      data: [],
+      testOut: []
     }
   },
   created() {
@@ -102,9 +103,9 @@ export default {
     },
     userOnline: function(user) {
       // ต้องสร้างห้อง bไปหาคนอื่นยกเว็นตัวเอง
-      // eslint-disable-next-line no-console 
+      // eslint-disable-next-line no-console
       console.log('data.users^^^param^^^', user)
-      this.users = []
+      // this.users = []
       this.users = user.users
       // eslint-disable-next-line no-console
       console.log('data.users^^^^', this.users)
@@ -112,7 +113,11 @@ export default {
     },
     userLeft: function(user) {
       // this.users.indexOf(this.users.includes(user), 1)
-      this.users.splice(this.users.indexOf(user), 1)
+      for (let i = 0; i < this.users.length; i++) {
+        if (this.users[i] !== this.users.splice(user, 1)) {
+          this.testOut.push(this.users[i])
+        }
+      }
     },
     msg: function(message) {
       this.messages.push(message)
