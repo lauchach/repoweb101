@@ -42,14 +42,11 @@ export default {
         this.msg = ''
         // var container = document.querySelector('.messages')
         // container.scrollTop = container.scrollHeight
-      }
+      }this.scrollToEnd()
     },
     scrollToEnd() {
       var container = document.querySelector('.messages')
       container.scrollTop = container.scrollHeight
-      // var container = document.querySelector(".messages")
-      // var scrollHeight = container.scrollHeight
-      // container.scrollTop = scrollHeight
     }
   },
   created() {

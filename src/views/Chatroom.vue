@@ -46,8 +46,6 @@
           <div class="px-4 py-5 chat-box bg-white">
             @chat-box
             <p class="username">Username: {{ username }}</p>
-            <!-- <p class="online">Online: {{ users.length }}</p> -->
-            <!-- <p class="online">Online: {{ createdAt }}</p> -->
             <p class="online">test time: {{ timex }}</p>
             <!-- Sender Message online users-->
             <div class="testitem" v-for="user in users" :key="user">
@@ -94,28 +92,22 @@ export default {
       // eslint-disable-next-line no-console
       console.log('socket connected//connection////////////////////////')
     },
-    userOneOnline: function(user) {
-      this.users = user.users
-      this.joinServer()
-      // eslint-disable-next-line no-console
-      console.log('userOneOnline: function()', this.users, this.users.length)
-    },
+    // userOneOnline: function(user) {
+    //   this.users = user.users
+    //   this.joinServer()
+    //   // eslint-disable-next-line no-console
+    //   console.log('userOneOnline: function()', this.users, this.users.length)
+    // },
     userOnline: function(user) {
       // ต้องสร้างห้อง bไปหาคนอื่นยกเว็นตัวเอง
-      // eslint-disable-next-line no-console
-      console.log('data.users^^^param^^^', user)
-      // this.users = []
       this.users = user.users
       this.messages = user.messages
-      // eslint-disable-next-line no-console
-      console.log('data.users^^^^', this.users)
-      // this.users = user.users
     },
     userLeft: function(user) {
-      // this.users.indexOf(this.users.includes(user), 1)
       for (let i = 0; i < this.users.length; i++) {
         if (this.users[i] !== this.users.splice(user, 1)) {
           this.testOut.push(this.users[i])
+          this.users = user.users
         }
       }
     },
@@ -123,25 +115,17 @@ export default {
       this.messages.push(message)
       this.$scrollToEnd
     },
-    // loggedIn: function(data) {
-    //   // eslint-disable-next-line no-console
-    //   console.log('this.loggedIn>>>data>>>>>>', data)
-    //   this.messages = data.messages
-    //   // this.users = data.users
-    //   // this.usersOnline.push(data.users)
-    //   // this.userOnline()
-    // },
     connectionone: function(user) {
       // eslint-disable-next-line no-console
       console.log('connectionone>>>data>>>>>>', user)
     }
   },
   methods: {
-    firstJoin: function() {
-      this.$socket.emit('firstJoinemit')
-      // eslint-disable-next-line no-console
-      console.log('firstJoin', this.users)
-    },
+    // firstJoin: function() {
+    //   this.$socket.emit('firstJoinemit')
+    //   // eslint-disable-next-line no-console
+    //   console.log('firstJoin', this.users)
+    // },
     joinServer: function() {
       // eslint-disable-next-line no-console
 
@@ -151,25 +135,17 @@ export default {
       if (this.users.length > 0) {
         // eslint-disable-next-line no-console
         console.log('if', this.users.length)
-        /*       this.$socket.emit('newuser', {
-          username: username,
-          type: this.datauser.type
-        }) */
         for (let i = 0; i < this.users.length; i++) {
           if (this.username === this.users[i]) {
-            // eslint-disable-next-line no-console
-            console.log('this user.length', this.users.length, 'else/if/1')
-            
-            // this.ischackmathusername = true
-            // eslint-disable-next-line no-console
-            console.log(this.ischackmathusername, '//end1')
+            alert('มีการใช้งานอยู่')
+            this.logout()
           } else {
             // eslint-disable-next-line no-console
             console.log('else1')
-            /*       this.$socket.emit('newuser', {
-      				    username: username,
-          				type: this.datauser.type
-        					}) */
+            this.$socket.emit('newuser', {
+              username: this.username,
+              type: this.datauser.type
+            })
           }
         }
       } else {
@@ -185,53 +161,7 @@ export default {
           console.log('///////else not/emit', this.ischackmathusername)
         }
       }
-
-      // if (this.users.length > 0) {
-      //   // eslint-disable-next-line no-console
-      //   console.log('joinServer: function() if > 0', this.users.length)
-      //   this.$socket.emit('newuser', {
-      //     username: this.username,
-      //     type: this.datauser.type
-      //   })
-      // } else {
-      //   // eslint-disable-next-line no-console
-      //   console.log('joinServer: function() else', this.users.length)
-      //   for (let i = 0; i < this.users.length; i++) {
-      //     if (this.username === this.users[i]) {
-      //       // eslint-disable-next-line no-console
-      //       console.log('this user.length', this.users.length, '/if')
-      //       this.ischackmathusername = true
-      //     } else {
-      //       // eslint-disable-next-line no-console
-      //       console.log('else')
-      //       // eslint-disable-next-line no-console
-      //       console.log('else/else this.ischackmathusername',this.ischackmathusername)
-      //       if (this.ischackmathusername === false) {
-      //         this.$socket.emit('newuser', {
-      //           username: this.username,
-      //           type: this.datauser.type
-      //         })
-      //         // eslint-disable-next-line no-console
-      //         console.log(
-      //           'else/else/if this.ischackmathusername',
-      //           this.ischackmathusername
-      //         )
-      //       } else {
-      //         // eslint-disable-next-line no-console
-      //         console.log(
-      //           'else/else/else this.ischackmathusername',
-      //           this.ischackmathusername
-      //         )
-      //       }
-      //     }
-      //   }
-      // }
     },
-    // userOnline: function() {
-    //   // eslint-disable-next-line no-console
-    //   console.log('userOnline: function(data)^^^', this.data)
-    //   this.users.push(this.data)
-    // },
     sendMessage: function(message) {
       this.$socket.emit('msg', message)
     },
@@ -245,14 +175,6 @@ export default {
       this.$router.push('/')
       this.$socket.emit('logOut', this.username)
     }
-    // SuserName: function ss() {
-    //   this.users.find(item => {
-    //     return item % this.username === 'kal'
-    //   })
-    // // eslint-disable-next-line no-undef
-    //   // eslint-disable-next-line no-console
-    //   console.log('SuserName', ss())
-    // }
   }
 }
 </script>
