@@ -61,7 +61,27 @@ export default {
   data() {
     return {
       email: '',
-      password: ''
+      password: '',
+      users: []
+    }
+  },
+  // created:{
+  //   console.log('x1')
+  // },
+  sockets: {
+    connection: function() {
+      // eslint-disable-next-line no-console
+      console.log(
+        'socket connected//connection////////////////////////',
+        this.user,
+        this.users.length
+      )
+    },
+    userOneOnline: function(user) {
+      this.users = user.users
+      localStorage.setItem('userOneOnline', user.users)
+      // eslint-disable-next-line no-console
+      console.log('userOneOnline: function()', this.users, this.users.length)
     }
   },
   // methods V.1.0
@@ -92,7 +112,37 @@ export default {
             // eslint-disable-next-line no-console
             // console.log("localStorage222>>> ", JSON.parse(localStorage.userData2));
             // commit('auth_success', user);
-            this.$router.push('/Chatroom')
+            
+
+            if (this.users.length > 0) {
+              // eslint-disable-next-line no-console
+              console.log('if', this.users.length)
+              /*       this.$socket.emit('newuser', {
+          username: username,
+          type: this.datauser.type
+        }) */
+              for (let i = 0; i < this.users.length; i++) {
+                if ( JSON.parse(localStorage.getItem('userData')).username === this.users[i]) {
+                  // eslint-disable-next-line no-console
+                  console.log(
+                    'this user.length',
+                    this.users.length,
+                    'else/if/1'
+                  )
+                  alert('มีการใช่งาน user นี้อยู่')
+                  
+                  // this.ischackmathusername = true
+                  // eslint-disable-next-line no-console
+                  console.log(this.ischackmathusername, '//end1')
+                } else {
+                  // eslint-disable-next-line no-console
+                  console.log('else1')
+                  this.$router.push('/Chatroom')
+                }
+              }
+            } else {
+              this.$router.push('/Chatroom')
+            }
           }
         })
         .catch(err => {

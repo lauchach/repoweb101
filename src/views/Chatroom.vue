@@ -63,14 +63,6 @@
 <script>
 import ChatRoom from '../components/CompoChatroom'
 var moment = require('moment')
-// function ss() {
-//   this.users.find(item => {
-//     return item % this.username === 'kal'
-//   })
-//   // eslint-disable-next-line no-undef
-//   // eslint-disable-next-line no-console
-//   console.log('SuserName', ss())
-// }
 
 export default {
   name: 'app',
@@ -98,9 +90,15 @@ export default {
     this.users = []
   },
   sockets: {
-    connect: function() {
+    connection: function() {
       // eslint-disable-next-line no-console
-      console.log('socket connected//connection')
+      console.log('socket connected//connection////////////////////////')
+    },
+    userOneOnline: function(user) {
+      this.users = user.users
+      this.joinServer()
+      // eslint-disable-next-line no-console
+      console.log('userOneOnline: function()', this.users, this.users.length)
     },
     userOnline: function(user) {
       // ต้องสร้างห้อง bไปหาคนอื่นยกเว็นตัวเอง
@@ -108,6 +106,7 @@ export default {
       console.log('data.users^^^param^^^', user)
       // this.users = []
       this.users = user.users
+      this.messages = user.messages
       // eslint-disable-next-line no-console
       console.log('data.users^^^^', this.users)
       // this.users = user.users
@@ -124,60 +123,66 @@ export default {
       this.messages.push(message)
       this.$scrollToEnd
     },
-    loggedIn: function(data) {
-      // eslint-disable-next-line no-console
-      console.log('this.loggedIn>>>data>>>>>>', data)
-      this.messages = data.messages
-      // this.users = data.users
-      // this.usersOnline.push(data.users)
-      // this.userOnline()
-    },
+    // loggedIn: function(data) {
+    //   // eslint-disable-next-line no-console
+    //   console.log('this.loggedIn>>>data>>>>>>', data)
+    //   this.messages = data.messages
+    //   // this.users = data.users
+    //   // this.usersOnline.push(data.users)
+    //   // this.userOnline()
+    // },
     connectionone: function(user) {
       // eslint-disable-next-line no-console
       console.log('connectionone>>>data>>>>>>', user)
     }
   },
   methods: {
+    firstJoin: function() {
+      this.$socket.emit('firstJoinemit')
+      // eslint-disable-next-line no-console
+      console.log('firstJoin', this.users)
+    },
     joinServer: function() {
       // eslint-disable-next-line no-console
-      console.log('joinServer: function()(this.users.length', this.users.length)
+
+      // eslint-disable-next-line no-console
+      console.log('joinServer: function()', this.users.length)
 
       if (this.users.length > 0) {
         // eslint-disable-next-line no-console
-        console.log('joinServer: function() if > 0', this.users.length)
-        this.$socket.emit('newuser', {
-          username: this.username,
+        console.log('if', this.users.length)
+        /*       this.$socket.emit('newuser', {
+          username: username,
           type: this.datauser.type
-        })
-      } else {
+        }) */
         for (let i = 0; i < this.users.length; i++) {
           if (this.username === this.users[i]) {
             // eslint-disable-next-line no-console
-            console.log('if')
-            this.ischackmathusername = true
+            console.log('this user.length', this.users.length, 'else/if/1')
+            
+            // this.ischackmathusername = true
             // eslint-disable-next-line no-console
-            console.log(this.ischackmathusername)
+            console.log(this.ischackmathusername, '//end1')
           } else {
             // eslint-disable-next-line no-console
-            console.log('else')
-            if (this.ischackmathusername === false) {
-              this.$socket.emit('newuser', {
-                username: this.username,
-                type: this.datauser.type
-              })
-              // eslint-disable-next-line no-console
-              console.log(
-                'else/else/if this.ischackmathusername',
-                this.ischackmathusername
-              )
-            } else {
-              // eslint-disable-next-line no-console
-              console.log(
-                'else/else/else this.ischackmathusername',
-                this.ischackmathusername
-              )
-            }
+            console.log('else1')
+            /*       this.$socket.emit('newuser', {
+      				    username: username,
+          				type: this.datauser.type
+        					}) */
           }
+        }
+      } else {
+        if (this.ischackmathusername === false) {
+          this.$socket.emit('newuser', {
+            username: this.username,
+            type: this.datauser.type
+          })
+          // eslint-disable-next-line no-console
+          console.log('///////if emit', this.ischackmathusername)
+        } else {
+          // eslint-disable-next-line no-console
+          console.log('///////else not/emit', this.ischackmathusername)
         }
       }
 
