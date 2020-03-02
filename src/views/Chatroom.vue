@@ -103,13 +103,10 @@ export default {
       this.users = user.users
       this.messages = user.messages
     },
-    userLeft: function(user) {
-      for (let i = 0; i < this.users.length; i++) {
-        if (this.users[i] !== this.users.splice(user, 1)) {
-          this.testOut.push(this.users[i])
-          this.users = user.users
-        }
-      }
+    userLeft: function(user2) {
+      this.users.splice(this.users.indexOf(user2.users), 1)
+      // eslint-disable-next-line no-console
+      console.log('////userLeft: function(user)////', this.users)
     },
     msg: function(message) {
       this.messages.push(message)
@@ -132,35 +129,35 @@ export default {
       // eslint-disable-next-line no-console
       console.log('joinServer: function()', this.users.length)
 
-      if (this.users.length > 0) {
-        // eslint-disable-next-line no-console
-        console.log('if', this.users.length)
-        for (let i = 0; i < this.users.length; i++) {
-          if (this.username === this.users[i]) {
-            alert('มีการใช้งานอยู่')
-            this.logout()
-          } else {
-            // eslint-disable-next-line no-console
-            console.log('else1')
-            this.$socket.emit('newuser', {
-              username: this.username,
-              type: this.datauser.type
-            })
-          }
-        }
-      } else {
-        if (this.ischackmathusername === false) {
-          this.$socket.emit('newuser', {
-            username: this.username,
-            type: this.datauser.type
-          })
-          // eslint-disable-next-line no-console
-          console.log('///////if emit', this.ischackmathusername)
-        } else {
-          // eslint-disable-next-line no-console
-          console.log('///////else not/emit', this.ischackmathusername)
-        }
-      }
+      // if (this.users.length > 0) {
+      //   // eslint-disable-next-line no-console
+      //   console.log('if', this.users.length)
+      //   for (let i = 0; i < this.users.length; i++) {
+      //     if (this.username === this.users[i]) {
+      //       alert('มีการใช้งานอยู่')
+      //       this.logout()
+      //     } else {
+      //       // eslint-disable-next-line no-console
+      //       console.log('else1')
+      //       this.$socket.emit('newuser', {
+      //         username: this.username,
+      //         type: this.datauser.type
+      //       })
+      //     }
+      //   }
+      // } else {
+      //   if (this.ischackmathusername === false) {
+      this.$socket.emit('newuser', {
+        username: this.username,
+        type: this.datauser.type
+      })
+      // eslint-disable-next-line no-console
+      //     console.log('///////if emit', this.ischackmathusername)
+      //   } else {
+      //     // eslint-disable-next-line no-console
+      //     console.log('///////else not/emit', this.ischackmathusername)
+      //   }
+      // }
     },
     sendMessage: function(message) {
       this.$socket.emit('msg', message)
